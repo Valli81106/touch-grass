@@ -1,6 +1,7 @@
 import Header from "@/components/header";
 import "./globals.css";
 import {Inter} from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -12,7 +13,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <ClerkProvider>
+      <html lang="en">
       <body className={`${inter.className} antialiased`} >
 
       <div className="bg-[url('/greeenBG.jpg')] opacity-100 fixed -z-10 inset-0"/>
@@ -28,5 +30,7 @@ export default function RootLayout({ children }) {
         </footer>
       </body>
     </html>
+    </ClerkProvider>
+  
   );
 }
