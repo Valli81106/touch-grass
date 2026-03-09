@@ -124,3 +124,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities{
+  .gradient-title{
+    @apply font-extrabold bg-linear-to-br from-green-500 via-green-300 to-green-400 bg-clip-text tracking-tighter pr-2 pb-2;
+  }
+}
+
+html{
+  scroll-behavior: smooth;
+}

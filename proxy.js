@@ -7,6 +7,8 @@ const isProtectedRoute = createRouteMatcher([
     "/journal(.*)",
 ]);
 
+//protection like shield and bit detection - arcjet
+
 export default clerkMiddleware(async(auth,req)=>{
     const {userId, redirectToSignIn} = await auth()
 
