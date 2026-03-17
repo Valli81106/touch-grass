@@ -1,9 +1,12 @@
+import { TestimonialCarousel } from "@/components/testimonial-carousel";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Calendar, ChevronRight, Sparkle , Book , Lock, FileText, Trophy } from "lucide-react";
-
+import faqs from "@/data/faqs";
 import Link from "next/link";
+import { getDailyPrompt } from "@/actions/public";
 
 const features = [
   {
@@ -24,8 +27,8 @@ const features = [
   }
 ]; 
 
-export default function Home() {
-  const hello = 1;
+export default async function Home() {
+  const advice = await getDailyPrompt();
 
   return (
     <div className="relative container mx-auto px-4 pt-16 pb-16">
@@ -63,7 +66,7 @@ export default function Home() {
 
             <div className="space-y-4 p-4">
               <h3 className="text-xl font-semibold text-green-900">
-                daily prompts for now
+                {advice?advice:"My Thoughts Today"}
               </h3>
 
               <Skeleton className="h-4 bg-green-100 rounded w-3/4" />
@@ -115,7 +118,7 @@ export default function Home() {
              <Trophy className="h-6 w-6 text-green-600"/>
             </div>
             <h3 className="text-2xl font-bold text-green-900">Weekly Wins</h3>
-            <p className="text-lg text-green-700">Every Friday, write down one win from the week. By the end of the year you'll have 52 tangible accomplishments.</p>
+            <p className="text-lg text-green-700">Every Friday, write down one win from the week.<br/> By the end of the year you'll have 52 tangible accomplishments.</p>
           </div>
           <div className="space-y-4 bg-white rounded-2xl shadow-xl p-6 border border-orange-100">
             <div className="flex gap-2 mb-6">
@@ -129,7 +132,66 @@ export default function Home() {
             <Skeleton className="h-4 bg-green-50 rounded w-3/4"/>
           </div>
         </div>
-        <div>2nd feature</div>
+
+        {/*seconf featureee*/ }
+        <div>
+           <div className="grid md:grid-cols-2 gap-12">
+              <div className="space-y-4 bg-white rounded-2xl shadow-xl p-6 border border-orange-100">
+                <div className="h-40 bg-linear-to-t from-green-100 to-green-50 rounded-lg"></div>
+                <div className="flex justify-between">
+                  <div className="h-4 w-16 bg-green-100 rounded"></div>
+                  <div className="h-4 w-16 bg-green-100 rounded"></div>
+                  <div className="h-4 w-16 bg-green-100 rounded"></div>
+                </div>
+              </div>
+          <div className="space-y-6">
+             <div className="h-12 w-12 bg-green-100 rounded-full flex items-center justify-center">
+             <Trophy className="h-6 w-6 text-green-600"/>
+            </div>
+            <h3 className="text-2xl font-bold text-green-900">Monthly Time Capsule</h3>
+            <p className="text-lg text-green-700">Every month write yourself a short note to unlocked exactly one year from today<br/> By the end of the year you'll have 52 tangible accomplishments.</p>
+          
+          </div>
+
+        </div>
+        </div>
+      </div>
+
+
+      <TestimonialCarousel/>
+
+      <div className="mt-24">
+        <h2 className="text-3xl font-bold text-center text-green-900 mb-12">Frequently Asked Questions</h2>
+            <Accordion type="single" collapsible defaultValue="item-1" className="w-full mx-auto">
+              {faqs.map((faqs, index)=>{
+                return (<AccordionItem key={faqs.q} value={`item-${index}`}>
+               <AccordionTrigger className="text-green-900 text-lg">{faqs.q}</AccordionTrigger>
+                <AccordionContent className="text-green-700">
+                   {faqs.a}
+                 </AccordionContent>
+              </AccordionItem>);
+              })}
+              
+            </Accordion>
+      </div>
+
+      <div className="mt-24">
+        <Card className="bg-linear-to-r from-green-100">
+          <CardContent className=" p-12 text-center ">
+            <h2 className="text-3xl font-bold text-green-900 mb-6">
+              Start reflecting babes.
+            </h2>
+            <p className="text-lg text-green-700 mb-8 max-w-2xl mx-auto">
+              nothing changes if nothing changes. join us and conquer your life back.
+            </p>
+            <Link href="/dashboard">
+              <Button size="lg" variant="journal" className="animate-bounce">
+                Get Started for Free <ChevronRight className="ml-2 h-4 w-4"/>
+              </Button>
+            </Link>
+          
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
